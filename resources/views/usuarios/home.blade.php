@@ -142,17 +142,45 @@
 </div>
                                     <div class="row">
 
-                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
+                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="1" maxlength="40" id="description"></textarea>
+                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="description"></textarea>
                                                 <p class="note">Máximo 40 caracteres</p>
                                             </div>
                                             </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Fecha de reserva:</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="mydate" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Hora de reserva:</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="timepicker" type="text" placeholder="Select time">
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-2">
+
+                                            <div class="form-group">
+                                                <label>Tiempo (horas)</label>
+                                                <input class="form-control spinner-rigth"  id="spinner" name="spinner" value="1" type="text">
+                                            </div>
+
+                                        </div>
+
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" type="button" id="add-event" >
+                                                        <button class="btn btn-primary form-control" onClick="prueba();" type="button" id="add-event" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -292,7 +320,16 @@
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
+    function prueba(){
+
+        $('#calendar').fullCalendar('removeEvents');
+        //$('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
+        $('#calendar').fullCalendar('rerenderEvents' );
+    }
     $(document).ready(function() {
+
+        $("#spinner").spinner();
+        $('#timepicker').timepicker();
 
         pageSetUp();
 

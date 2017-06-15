@@ -186,6 +186,8 @@ you can add as many as you like
 <script src="/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale-all.js"></script>
 
+<script src="/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+
 @yield('script')
 
 
