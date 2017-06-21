@@ -142,17 +142,47 @@
 </div>
                                     <div class="row">
 
-                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-10">
+                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="1" maxlength="40" id="description"></textarea>
+                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="description"></textarea>
                                                 <p class="note">Máximo 40 caracteres</p>
                                             </div>
                                             </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Fecha:</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="mydate" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Hora:</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="horaEvento" type="text" placeholder="Select time">
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-4 col-lg-2">
+
+                                            <div class="form-group">
+                                                <label>Tiempo(horas):</label>
+                                                <input class="form-control spinner-rigth"  id="tiempoEvento" name="spinner" value="1" type="text">
+                                            </div>
+
+                                        </div>
+
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" type="button" id="add-event" >
+                                                        <button class="btn btn-primary form-control" onclick="agregarEvento()" type="button" id="add-event" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -169,7 +199,7 @@
                     <!-- end widget div -->
                 </div>
                 <!-- end widget -->
-
+<!--
                 <div class="well well-sm" id="event-container">
                     <form>
                         <fieldset>
@@ -196,7 +226,7 @@
                         </fieldset>
                     </form>
 
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -232,7 +262,7 @@
                                 </button>
                                 <ul class="dropdown-menu js-status-update pull-right">
                                     <li>
-                                        <a href="javascript:void(0);" id="mt">Mensuak</a>
+                                        <a href="javascript:void(0);" id="mt">Mensual</a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);" id="ag">Agenda</a>
@@ -292,10 +322,63 @@
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
+
+    function agregarEvento(){
+        var tiempo = $('#tiempoEvento').val();
+        var fecha = $('#fechaEvento').val().split("/");
+        var dia = fecha[0];
+        var mes = fecha[1];
+        var anio = fecha[2];
+        var hora = $('#horaEvento').val().split(" ");
+        var tmp_hora = hora[0].split(":");
+        var am_pm = hora[1];
+        var hora_ini = tmp_hora[0];
+        if(am_pm == "PM")
+            hora_ini = Number(hora_ini) +  12;
+        var min_ini = tmp_hora[1];
+        var hora_fin = Number(hora_ini) + Number(tiempo);
+        var min_fin = min_ini;
+
+        if(hora_fin > 23){
+            hora_fin = 23;
+            min_fin = 59;
+        }
+
+        $.ajax({
+            type: "GET",  // type of request
+            url: "/nuevo", // resource file with extension
+            success: callback  // callback function, called when Ajax operation is complete
+        });
+
+
+        /*
+         $.ajax({
+         type: "POST",
+         url: 'nuevo',
+         data: {dia: dia, mes: mes, anio: anio},
+         success: function( msg ) {
+         alert("INI: " + hora_ini + " & " + min_ini + " FIN: " + hora_fin + ":" +min_fin);
+         //$("#ajaxResponse").append("<div>"+msg+"</div>");
+
+         $.smallBox({
+         title : "Se agregó el evento correctamente",
+         content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+         color : "#296191",
+         iconSmall : "fa fa-check-square bounce animated",
+         timeout : 4000
+         });
+         }
+         });*/
+
+    }
+
+
     $(document).ready(function() {
 
         pageSetUp();
 
+        $('#horaEvento').timepicker();
+        $("#tiempoEvento").spinner();
 
         "use strict";
 
@@ -351,7 +434,7 @@
         $('#external-events > li').each(function () {
             initDrag($(this));
         });
-
+/*
         $('#add-event').click(function () {
             var title = $('#num_cancha option:selected').text(),
                     priority = $('input:radio[name=priority]:checked').val(),
@@ -359,7 +442,7 @@
                     icon = $('input:radio[name=iconselect]:checked').val();
 
             addEvent(title, priority, description, icon);
-        });
+        });*/
 
         /* initialize the calendar
          -----------------------------------------------------------------*/

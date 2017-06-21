@@ -23,10 +23,16 @@ Route::post('/cliente/informacion','WebController@addSolicitud')->name('cliente.
 
 Route::get('/negocio/form','WebController@llenarcampos')->name('negocio.form');
 
+
+Route::group(['prefix' => 'usuarios'],(function(){
+    Route::get('/home','UsuarioController@index')->name('home.usuarios');
+    Route::POST('/nuevoevento','UsuarioController@nuevoEvento')->name('nuevo.evento');
+}));
+/*
 Route::get('/usuarios/home',function(){
     return view('usuarios.home');
 })->middleware('auth');
-
+*/
 Route::group(['prefix' => 'admin'],(function(){
     Route::get('/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::POST('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
