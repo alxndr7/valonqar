@@ -154,7 +154,7 @@
                                             <div class="form-group">
                                                 <label>Fecha:</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="mydate" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <input type="text" name="mydate" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -323,6 +323,8 @@
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
     function agregarEvento(){
+
+
         var tiempo = $('#tiempoEvento').val();
         var fecha = $('#fechaEvento').val().split("/");
         var dia = fecha[0];
@@ -332,7 +334,7 @@
         var tmp_hora = hora[0].split(":");
         var am_pm = hora[1];
         var hora_ini = tmp_hora[0];
-        if(am_pm == "PM")
+        if(am_pm == "PM" && hora_ini !=12)
             hora_ini = Number(hora_ini) +  12;
         var min_ini = tmp_hora[1];
         var hora_fin = Number(hora_ini) + Number(tiempo);
@@ -344,16 +346,13 @@
             hora_fin = 23;
             min_fin = 59;
         }
-/*
-        $.ajax({
-            type: "GET",  // type of request
-            url: "http://localhost:8085/uploadimage/show2.php", // resource file with extension
-            success: function( msg ) {
-                alert(msg);
-            }
-        });
-*/
 
+
+        var fecha_ini = $('#fechaEvento').val() + " " +hora_ini + ":" + min_ini;
+        var fecha_fin = $('#fechaEvento').val() + " " +hora_fin + ":" + min_fin;
+
+        alert("fecha ini:" + fecha_ini + " fecha fin: " + fecha_fin);
+/*
         $.ajax({
             method: "POST",
             url: "prueba",
@@ -370,14 +369,17 @@
             },
             success: function (data) {
                // var json_obj = JSON.parse(json_str);
-               // alert(JSON.stringify(data));
-                alert(data);
-                /*
-                 inner = "";
-                 data.forEach(function (el, i, array) {
-                 inner += "<div>" + el.name + "</div>";
-                 });
-                 showUser.html(inner);*/
+                alert(JSON.stringify(data));
+                //alert(data);
+
+                $.smallBox({
+                    title : "Se agregó el evento correctamente",
+                    content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+                    color : "#296191",
+                    iconSmall : "fa fa-check-square bounce animated",
+                    timeout : 4000
+                });
+
             },
             error: function (e) {
                 //something went wrong with the request
@@ -386,39 +388,37 @@
 
         });
         event.preventDefault();
-
-        /*
-        $.ajax({
-                    type: "GET",  // type of request
-                    url: "http://localhost:8085/uploadimage/show2.php", // resource file with extension
-        })
-                .done(function(response) {
-                    alert(response);
-                })
-                .error(function(data) { // the data parameter here is a jqXHR instance
-                    var errors = data.responseJSON;
-                    console.log('server errors',errors);
-                });
 */
+        $.ajax({
+            method: "POST",
+            url: "{{route("insertar.evento")}}",
+            dataType:"json",
+            data: {
+                '_token': CSRF_TOKEN,
+                'fecha_ini': fecha_ini,
+                'fecha_fin': fecha_fin,
+            },
+            success: function (data) {
+                // var json_obj = JSON.parse(json_str);
+                alert(JSON.stringify(data));
+                //alert(data);
 
-        /*
-         $.ajax({
-         type: "POST",
-         url: 'nuevo',
-         data: {dia: dia, mes: mes, anio: anio},
-         success: function( msg ) {
-         alert("INI: " + hora_ini + " & " + min_ini + " FIN: " + hora_fin + ":" +min_fin);
-         //$("#ajaxResponse").append("<div>"+msg+"</div>");
+                $.smallBox({
+                    title : "Se agregó el evento correctamente",
+                    content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+                    color : "#296191",
+                    iconSmall : "fa fa-check-square bounce animated",
+                    timeout : 4000
+                });
 
-         $.smallBox({
-         title : "Se agregó el evento correctamente",
-         content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
-         color : "#296191",
-         iconSmall : "fa fa-check-square bounce animated",
-         timeout : 4000
-         });
-         }
-         });*/
+            },
+            error: function (e) {
+                //something went wrong with the request
+                alert("Error" + e.responseText);
+            }
+
+        });
+        event.preventDefault();
 
     }
 

@@ -16,13 +16,24 @@ class UsuarioController extends Controller
         return view('usuarios/home');
     }
 
-    public function prueba(Request $request){
+    public function insertarEvento(Request $request){
 
-        //$usuarios = \DB::select('select * from separala_2.usuarios');
-        //return response()->json(['respuesta'=>$request->anio]);
+        $eventos = \DB::select('call pa_insertarEvento(?, ?, ?, ?, ?, ?,?,?,?,?,?)',
+            array(1,1,1,$request->anio,$request->mes,$request->dia,$request->hora_ini,$request->min_ini,
+                $request->hora_fin,$request->min_fin,'13001'));
 
-        return $request->anio;
+        return response()->json(['respuesta'=>$eventos]);
     }
+
+
+    public function insertarEvento2(Request $request){
+
+        $eventos = \DB::select('call pa_insertarEvento2(?, ?, ?, ?, ?, ?)',
+            array(2,1,1,$request->fecha_ini,$request->fecha_fin,'13001'));
+
+        return response()->json(['respuesta'=>$eventos]);
+    }
+
 
     public function nuevoEvento(Request $request){
 
