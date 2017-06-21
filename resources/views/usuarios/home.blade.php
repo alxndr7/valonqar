@@ -321,36 +321,6 @@
 <script type="text/javascript">
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
-    function descargaArchivo() {
-
-        // Obtener la instancia del objeto XMLHttpRequest
-        if(window.XMLHttpRequest) {
-            peticion_http = new XMLHttpRequest();
-        }
-        else if(window.ActiveXObject) {
-            peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        // Preparar la funcion de respuesta
-        peticion_http.onreadystatechange = muestraContenido();
-
-        // Realizar peticion HTTP
-        peticion_http.open('GET', 'http://localhost:8085/uploadimage/show2.php', true);
-        peticion_http.send(null);
-
-        function muestraContenido() {
-//alert(peticion_http.readyState);
-            if(peticion_http.readyState == 0) {
-                //alert("muestra contenido");
-                if(peticion_http.status == 200) {
-                    alert(peticion_http.responseText);
-                }
-            }
-        }
-
-    }
-
-
 
     function agregarEvento(){
         var tiempo = $('#tiempoEvento').val();
