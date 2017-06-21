@@ -26,6 +26,7 @@ Route::get('/negocio/form','WebController@llenarcampos')->name('negocio.form');
 
 Route::group(['prefix' => 'usuarios'],(function(){
     Route::get('/home','UsuarioController@index')->name('home.usuarios');
+    Route::post('/prueba','UsuarioController@prueba')->name('prueba');
     Route::POST('/nuevoevento','UsuarioController@nuevoEvento')->name('nuevo.evento');
 }));
 /*

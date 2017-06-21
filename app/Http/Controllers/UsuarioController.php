@@ -16,6 +16,14 @@ class UsuarioController extends Controller
         return view('usuarios/home');
     }
 
+    public function prueba(Request $request){
+
+        //$usuarios = \DB::select('select * from separala_2.usuarios');
+        //return response()->json(['respuesta'=>$request->anio]);
+
+        return $request->anio;
+    }
+
     public function nuevoEvento(Request $request){
 
         $Nombre = \DB::select('call pa_insertarSolicitud(?, ?, ?, ?, ?, ?)',

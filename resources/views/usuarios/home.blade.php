@@ -321,6 +321,35 @@
 <script type="text/javascript">
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    function descargaArchivo() {
+
+        // Obtener la instancia del objeto XMLHttpRequest
+        if(window.XMLHttpRequest) {
+            peticion_http = new XMLHttpRequest();
+        }
+        else if(window.ActiveXObject) {
+            peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // Preparar la funcion de respuesta
+        peticion_http.onreadystatechange = muestraContenido();
+
+        // Realizar peticion HTTP
+        peticion_http.open('GET', 'http://localhost:8085/uploadimage/show2.php', true);
+        peticion_http.send(null);
+
+        function muestraContenido() {
+//alert(peticion_http.readyState);
+            if(peticion_http.readyState == 0) {
+                //alert("muestra contenido");
+                if(peticion_http.status == 200) {
+                    alert(peticion_http.responseText);
+                }
+            }
+        }
+
+    }
+
 
 
     function agregarEvento(){
@@ -339,17 +368,68 @@
         var hora_fin = Number(hora_ini) + Number(tiempo);
         var min_fin = min_ini;
 
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
         if(hora_fin > 23){
             hora_fin = 23;
             min_fin = 59;
         }
-
+/*
         $.ajax({
             type: "GET",  // type of request
-            url: "/nuevo", // resource file with extension
-            success: callback  // callback function, called when Ajax operation is complete
+            url: "http://localhost:8085/uploadimage/show2.php", // resource file with extension
+            success: function( msg ) {
+                alert(msg);
+            }
         });
+*/
 
+        $.ajax({
+            method: "POST",
+            url: "prueba",
+            dataType:"json",
+            data: {
+                '_token': CSRF_TOKEN,
+                'dia': dia,
+                'mes': mes,
+                'anio':anio,
+                'hora_ini':hora_ini,
+                'min_ini':min_ini,
+                'hora_fin':hora_fin,
+                'min_fin':min_fin
+            },
+            success: function (data) {
+               // var json_obj = JSON.parse(json_str);
+               // alert(JSON.stringify(data));
+                alert(data);
+                /*
+                 inner = "";
+                 data.forEach(function (el, i, array) {
+                 inner += "<div>" + el.name + "</div>";
+                 });
+                 showUser.html(inner);*/
+            },
+            error: function (e) {
+                //something went wrong with the request
+                alert("Error" + e.responseText);
+            }
+
+        });
+        event.preventDefault();
+
+        /*
+        $.ajax({
+                    type: "GET",  // type of request
+                    url: "http://localhost:8085/uploadimage/show2.php", // resource file with extension
+        })
+                .done(function(response) {
+                    alert(response);
+                })
+                .error(function(data) { // the data parameter here is a jqXHR instance
+                    var errors = data.responseJSON;
+                    console.log('server errors',errors);
+                });
+*/
 
         /*
          $.ajax({
