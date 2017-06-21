@@ -180,7 +180,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" onClick="prueba();" type="button" id="add-event" >
+                                                        <button class="btn btn-primary form-control" onClick="pruebaAjax();" type="button" id="add-event" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -321,6 +321,8 @@
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
     function prueba(){
+
+
 
         $('#calendar').fullCalendar('removeEvents');
         //$('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');

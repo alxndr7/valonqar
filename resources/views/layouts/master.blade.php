@@ -187,12 +187,36 @@ you can add as many as you like
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale-all.js"></script>
 
 <script src="/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
 
 @yield('script')
 
 
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <script type="text/javascript">
+
+    function pruebaAjax(){
+        alert("hola");
+
+        $.ajax({
+            type: 'get',
+            url: '/prueba',
+            data: {
+                'ncodcom': cod
+            },
+            success: function(data) {
+                //alert(data);
+                event.preventDefault();
+                $('#myModal').modal('show');
+                $('#myModal').show().html(data);
+            },
+
+        });
+
+    }
+
+
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
     _gaq.push(['_trackPageview']);
