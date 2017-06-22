@@ -65,7 +65,7 @@
                         <div class="widget-body">
                             <!-- content goes here -->
 
-                            <form id="add-event-form">
+                            <form id="add-event-form" novalidate="novalidate">
                                 <fieldset>
 <div class="row">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -147,7 +147,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="description"></textarea>
+                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
                                                 <p class="note">Máximo 40 caracteres</p>
                                             </div>
                                             </div>
@@ -184,7 +184,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" onclick="agregarEvento()" type="button" id="add-event" >
+                                                        <button class="btn btn-primary form-control" onclick="validarEvento()" type="button" id="add-event2" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -306,6 +306,58 @@
 
         </div>
 
+        <form action="php/demo-comment.php" method="post" id="comment-form" class="smart-form">
+            <header>
+                Comment form
+            </header>
+
+            <fieldset>
+                <div class="row">
+                    <section class="col col-4">
+                        <label class="label">Name</label>
+                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="name">
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">E-mail</label>
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="email" name="email">
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">Website</label>
+                        <label class="input"> <i class="icon-append fa fa-globe"></i>
+                            <input type="url" name="url">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+                  <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
+                            <p class="note">Máximo 40 caracteres</p>
+                        </div>
+                    </div>
+
+
+
+            <footer>
+                <button type="button" onclick="validarEvento()" name="submit" class="btn btn-primary">
+                    Validate Form
+                </button>
+            </footer>
+
+            <div class="message">
+                <i class="fa fa-check fa-lg"></i>
+                <p>
+                    Your comment was successfully added!
+                </p>
+            </div>
+        </form>
+
+
         <!-- end row -->
 
     </div>
@@ -324,118 +376,50 @@
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
-    function agregarEvento(){
-
-        var icon = $('input:radio[name=iconselect]:checked').val();
-        var id_cancha =  $('#num_cancha').val();
-        var n_cod_neg =  $('#n_cod_neg').val();
-        var color = "#FFFFFF";
-        var tiempo = $('#tiempoEvento').val();
-        var fecha = $('#fechaEvento').val().split("/");
-        var dia = fecha[0];
-        var mes = fecha[1];
-        var anio = fecha[2];
-        var hora = $('#horaEvento').val().split(" ");
-        var tmp_hora = hora[0].split(":");
-        var am_pm = hora[1];
-        var hora_ini = tmp_hora[0];
-        if(am_pm == "PM" && hora_ini !=12)
-            hora_ini = Number(hora_ini) +  12;
-        var min_ini = tmp_hora[1];
-        var hora_fin = Number(hora_ini) + Number(tiempo);
-        var min_fin = min_ini;
-
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-        if(hora_fin > 23){
-            hora_fin = 23;
-            min_fin = 59;
-        }
-
-        switch(id_cancha) {
-            case '1':
-                color = "#9C27B0";
-                break;
-            case '2':
-                color = "#009688";
-                break;
-            case '3':
-                color = "#CDDC39";
-                break;
-            case '4':
-                color = "#4CAF50";
-                break;
-            case '5':
-                color = "#FF9800";
-                break;
-            default:
-                color = "#AAFFHH";
-        }
-
-        var fecha_ini = $('#fechaEvento').val() + " " +hora_ini + ":" + min_ini;
-        var fecha_fin = $('#fechaEvento').val() + " " +hora_fin + ":" + min_fin;
-
-       // alert("fecha ini:" + fecha_ini + " fecha fin: " + fecha_fin);
-
-        $.ajax({
-            method: "POST",
-            url: "{{route("insertar.evento")}}",
-            dataType:"json",
-            data: {
-                '_token': CSRF_TOKEN,
-                'fecha_ini': fecha_ini,
-                'fecha_fin': fecha_fin,
-                'icon': icon,
-                'id_cancha': id_cancha,
-                'n_cod_neg': n_cod_neg,
-                'color': color
-            },
-            success: function (data) {
-
-               // var jsonObj = JSON.parse(data);
-                // alert(JSON.stringify(data));
-                //alert();
-
-                if(data['response']) {
-                    $.smallBox({
-                        title : "Se agregó el evento correctamente",
-                        content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
-                        color : "#296191",
-                        iconSmall : "fa fa-check-square bounce animated",
-                        timeout : 4000
-                    });
-
-                    $('#calendar').fullCalendar('removeEvents');
-                    $('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
-                    $('#calendar').fullCalendar('rerenderEvents' );
-                }
-                else{
-                    $.smallBox({
-                        title : "No se pudo agregar el evento",
-                        content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
-                        color : "#f44336",
-                        iconSmall : "fa fa-minus-square bounce animated",
-                        timeout : 4000
-                    });
-                }
-
-
-
-            },
-            error: function (e) {
-                //something went wrong with the request
-                alert("Error" + e.responseText);
-            }
-
-        });
-        event.preventDefault();
-
-    }
-
-
     $(document).ready(function() {
 
         pageSetUp();
+
+        var errorClass = 'invalid';
+        var errorElement = 'em';
+
+        $("#add-event-form").validate({
+            errorClass		: errorClass,
+            errorElement	: errorElement,
+            highlight: function(element) {
+                $(element).parent().removeClass('state-success').addClass("state-error");
+                $(element).removeClass('valid');
+            },
+            unhighlight: function(element) {
+                $(element).parent().removeClass("state-error").addClass('state-success');
+                $(element).addClass('valid');
+            },
+            // Rules for form validation
+            rules : {
+                descriptiondata : {
+                    required : true
+                },
+                mydate :{
+                    required: true
+                }
+            },
+
+            // Messages for form validation
+            messages : {
+                descriptiondata : {
+                    required : 'Este campo es obligatorio'
+                },
+                mydate :{
+                    required: 'Este campo es obligatorio'
+                }
+            },
+
+            // Do not change code below
+            errorPlacement : function(error, element) {
+                error.insertAfter(element.parent());
+            }
+        });
+
 
         $('#horaEvento').timepicker();
         $("#tiempoEvento").spinner();
@@ -597,7 +581,122 @@
             $('#calendar').fullCalendar('changeView', 'agendaDay');
         });
 
-    })
+
+    });
+
+    function agregarEvento(){
+        /*
+         var icon = $('input:radio[name=iconselect]:checked').val();
+         var id_cancha =  $('#num_cancha').val();
+         var n_cod_neg =  $('#n_cod_neg').val();
+         var color = "#FFFFFF";
+         var tiempo = $('#tiempoEvento').val();
+         var fecha = $('#fechaEvento').val().split("/");
+         var dia = fecha[0];
+         var mes = fecha[1];
+         var anio = fecha[2];
+         var hora = $('#horaEvento').val().split(" ");
+         var tmp_hora = hora[0].split(":");
+         var am_pm = hora[1];
+         var hora_ini = tmp_hora[0];
+         if(am_pm == "PM" && hora_ini !=12)
+         hora_ini = Number(hora_ini) +  12;
+         var min_ini = tmp_hora[1];
+         var hora_fin = Number(hora_ini) + Number(tiempo);
+         var min_fin = min_ini;
+
+         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+         if(hora_fin > 23){
+         hora_fin = 23;
+         min_fin = 59;
+         }
+
+         switch(id_cancha) {
+         case '1':
+         color = "#9C27B0";
+         break;
+         case '2':
+         color = "#009688";
+         break;
+         case '3':
+         color = "#CDDC39";
+         break;
+         case '4':
+         color = "#4CAF50";
+         break;
+         case '5':
+         color = "#FF9800";
+         break;
+         default:
+         color = "#AAFFHH";
+         }
+
+         var fecha_ini = $('#fechaEvento').val() + " " +hora_ini + ":" + min_ini;
+         var fecha_fin = $('#fechaEvento').val() + " " +hora_fin + ":" + min_fin;
+
+         // alert("fecha ini:" + fecha_ini + " fecha fin: " + fecha_fin);
+
+         $.ajax({
+         method: "POST",
+         url: "{{route("insertar.evento")}}",
+         dataType:"json",
+         data: {
+         '_token': CSRF_TOKEN,
+         'fecha_ini': fecha_ini,
+         'fecha_fin': fecha_fin,
+         'icon': icon,
+         'id_cancha': id_cancha,
+         'n_cod_neg': n_cod_neg,
+         'color': color
+         },
+         success: function (data) {
+
+         // var jsonObj = JSON.parse(data);
+         // alert(JSON.stringify(data));
+         //alert();
+
+         if(data['response']) {
+         $.smallBox({
+         title : "Se agregó el evento correctamente",
+         content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+         color : "#296191",
+         iconSmall : "fa fa-check-square bounce animated",
+         timeout : 4000
+         });
+
+         $('#calendar').fullCalendar('removeEvents');
+         $('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
+         $('#calendar').fullCalendar('rerenderEvents' );
+         }
+         else{
+         $.smallBox({
+         title : "No se pudo agregar el evento",
+         content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+         color : "#f44336",
+         iconSmall : "fa fa-minus-square bounce animated",
+         timeout : 4000
+         });
+         }
+
+
+
+         },
+         error: function (e) {
+         //something went wrong with the request
+         alert("Error" + e.responseText);
+         }
+
+         });
+         event.preventDefault();
+         */
+    }
+
+
+    function validarEvento(){
+
+        $("#add-event-form").valid();
+    }
 
 </script>
 
