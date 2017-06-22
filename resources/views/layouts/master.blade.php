@@ -105,22 +105,23 @@ you can add as many as you like
 <!--================================================== -->
 
 <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="/js/plugin/pace/pace.min.js"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     if (!window.jQuery) {
-        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+        document.write('<script src="/js/libs/jquery-2.1.1.min.js"><\/script>');
     }
 </script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script>
     if (!window.jQuery.ui) {
-        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        document.write('<script src="/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
     }
 </script>
+
 
 <!-- IMPORTANT: APP CONFIG -->
 <script src="/js/app.config.js"></script>
@@ -187,36 +188,12 @@ you can add as many as you like
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale-all.js"></script>
 
 <script src="/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
 
 @yield('script')
 
 
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <script type="text/javascript">
-
-    function pruebaAjax(){
-        alert("hola");
-
-        $.ajax({
-            type: 'get',
-            url: '/prueba',
-            data: {
-                'ncodcom': cod
-            },
-            success: function(data) {
-                //alert(data);
-                event.preventDefault();
-                $('#myModal').modal('show');
-                $('#myModal').show().html(data);
-            },
-
-        });
-
-    }
-
-
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
     _gaq.push(['_trackPageview']);

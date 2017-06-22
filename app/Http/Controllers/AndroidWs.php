@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class AndroidWs extends Controller
 {
@@ -59,7 +60,7 @@ class AndroidWs extends Controller
 
     public function obtenerEventosWeb(){
 
-        $eventos = \DB::select('call pa_obtenereventos(?)',array(1));
+        $eventos = \DB::select('call pa_obtenereventos(?)',array(Auth::user()->id));
         return response()->json($eventos);
     }
 

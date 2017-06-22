@@ -73,11 +73,13 @@
             <label>Seleccionar # cancha</label>
             <select name="gender" id="num_cancha" class="form-control">
                 <option value="0" selected="" disabled="">Seleccione cancha</option>
-                <option value="1">Cancha #01</option>
-                <option value="2">Cancha #02</option>
-                <option value="3">Cancha #03</option>
-                <option value="4">Cancha #04</option>
+                @foreach ($canchas as $c)
+
+                <option value="{{ $c->n_cod_det_neg }}">{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
+
+                @endforeach
             </select>
+            <input type="hidden" id="n_cod_neg" value="{{ $c->n_cod_neg }}">
 
         </div>
     </div>
@@ -149,11 +151,12 @@
                                                 <p class="note">Máximo 40 caracteres</p>
                                             </div>
                                             </div>
+
                                         <div class="col-sm-2">
                                             <div class="form-group">
-                                                <label>Fecha de reserva:</label>
+                                                <label>Fecha:</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="mydate" placeholder="Select a date" class="form-control datepicker" data-dateformat="dd/mm/yy">
+                                                    <input type="text" name="mydate" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -161,18 +164,19 @@
 
                                         <div class="col-sm-2">
                                             <div class="form-group">
-                                                <label>Hora de reserva:</label>
+                                                <label>Hora:</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" id="timepicker" type="text" placeholder="Select time">
+                                                    <input class="form-control" id="horaEvento" type="text" placeholder="Select time">
                                                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-sm-6 col-md-4 col-lg-2">
 
                                             <div class="form-group">
-                                                <label>Tiempo (horas)</label>
-                                                <input class="form-control spinner-rigth"  id="spinner" name="spinner" value="1" type="text">
+                                                <label>Tiempo(horas):</label>
+                                                <input class="form-control spinner-rigth"  id="tiempoEvento" name="spinner" value="1" type="text">
                                             </div>
 
                                         </div>
@@ -180,7 +184,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" onClick="pruebaAjax();" type="button" id="add-event" >
+                                                        <button class="btn btn-primary form-control" onclick="agregarEvento()" type="button" id="add-event" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -197,7 +201,7 @@
                     <!-- end widget div -->
                 </div>
                 <!-- end widget -->
-
+<!--
                 <div class="well well-sm" id="event-container">
                     <form>
                         <fieldset>
@@ -224,7 +228,7 @@
                         </fieldset>
                     </form>
 
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -260,13 +264,13 @@
                                 </button>
                                 <ul class="dropdown-menu js-status-update pull-right">
                                     <li>
-                                        <a href="javascript:void(0);" id="mt">Mensuak</a>
+                                        <a href="javascript:void(0);" id="mt">Mensual</a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);" id="ag">Agenda</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);" id="td">Hoy</a>
+                                        <a href="javascript:void(0);" id="td">Diaria</a>
                                     </li>
                                 </ul>
                             </div>
@@ -320,21 +324,121 @@
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
-    function prueba(){
+    function agregarEvento(){
+
+        var icon = $('input:radio[name=iconselect]:checked').val();
+        var id_cancha =  $('#num_cancha').val();
+        var n_cod_neg =  $('#n_cod_neg').val();
+        var color = "#FFFFFF";
+        var tiempo = $('#tiempoEvento').val();
+        var fecha = $('#fechaEvento').val().split("/");
+        var dia = fecha[0];
+        var mes = fecha[1];
+        var anio = fecha[2];
+        var hora = $('#horaEvento').val().split(" ");
+        var tmp_hora = hora[0].split(":");
+        var am_pm = hora[1];
+        var hora_ini = tmp_hora[0];
+        if(am_pm == "PM" && hora_ini !=12)
+            hora_ini = Number(hora_ini) +  12;
+        var min_ini = tmp_hora[1];
+        var hora_fin = Number(hora_ini) + Number(tiempo);
+        var min_fin = min_ini;
+
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        if(hora_fin > 23){
+            hora_fin = 23;
+            min_fin = 59;
+        }
+
+        switch(id_cancha) {
+            case '1':
+                color = "#9C27B0";
+                break;
+            case '2':
+                color = "#009688";
+                break;
+            case '3':
+                color = "#CDDC39";
+                break;
+            case '4':
+                color = "#4CAF50";
+                break;
+            case '5':
+                color = "#FF9800";
+                break;
+            default:
+                color = "#AAFFHH";
+        }
+
+        var fecha_ini = $('#fechaEvento').val() + " " +hora_ini + ":" + min_ini;
+        var fecha_fin = $('#fechaEvento').val() + " " +hora_fin + ":" + min_fin;
+
+       // alert("fecha ini:" + fecha_ini + " fecha fin: " + fecha_fin);
+
+        $.ajax({
+            method: "POST",
+            url: "{{route("insertar.evento")}}",
+            dataType:"json",
+            data: {
+                '_token': CSRF_TOKEN,
+                'fecha_ini': fecha_ini,
+                'fecha_fin': fecha_fin,
+                'icon': icon,
+                'id_cancha': id_cancha,
+                'n_cod_neg': n_cod_neg,
+                'color': color
+            },
+            success: function (data) {
+
+               // var jsonObj = JSON.parse(data);
+                // alert(JSON.stringify(data));
+                //alert();
+
+                if(data['response']) {
+                    $.smallBox({
+                        title : "Se agregó el evento correctamente",
+                        content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+                        color : "#296191",
+                        iconSmall : "fa fa-check-square bounce animated",
+                        timeout : 4000
+                    });
+
+                    $('#calendar').fullCalendar('removeEvents');
+                    $('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
+                    $('#calendar').fullCalendar('rerenderEvents' );
+                }
+                else{
+                    $.smallBox({
+                        title : "No se pudo agregar el evento",
+                        content : "<i class='fa fa-clock-o'></i> <i>hace 2 segundos</i>",
+                        color : "#f44336",
+                        iconSmall : "fa fa-minus-square bounce animated",
+                        timeout : 4000
+                    });
+                }
 
 
 
-        $('#calendar').fullCalendar('removeEvents');
-        //$('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
-        $('#calendar').fullCalendar('rerenderEvents' );
+            },
+            error: function (e) {
+                //something went wrong with the request
+                alert("Error" + e.responseText);
+            }
+
+        });
+        event.preventDefault();
+
     }
-    $(document).ready(function() {
 
-        $("#spinner").spinner();
-        $('#timepicker').timepicker();
+
+    $(document).ready(function() {
 
         pageSetUp();
 
+        $('#horaEvento').timepicker();
+        $("#tiempoEvento").spinner();
 
         "use strict";
 
@@ -390,7 +494,7 @@
         $('#external-events > li').each(function () {
             initDrag($(this));
         });
-
+/*
         $('#add-event').click(function () {
             var title = $('#num_cancha option:selected').text(),
                     priority = $('input:radio[name=priority]:checked').val(),
@@ -398,7 +502,7 @@
                     icon = $('input:radio[name=iconselect]:checked').val();
 
             addEvent(title, priority, description, icon);
-        });
+        });*/
 
         /* initialize the calendar
          -----------------------------------------------------------------*/
@@ -406,7 +510,7 @@
         $('#calendar').fullCalendar({
 
             header: hdr,
-            editable: true,
+            editable: false,
             droppable: true, // this allows things to be dropped onto the calendar !!!
 
             drop: function (date, allDay) { // this function is called when something is dropped
@@ -447,56 +551,6 @@
                 calendar.fullCalendar('unselect');
             },
             events: '/wsobteventosweb',
-            /*events: [{
-                title: 'All Day Event',
-                start: new Date(y, m, 1),
-                description: 'long description',
-                className: ["event", "bg-color-greenLight"],
-                icon: 'fa-check'
-            }, {
-                title: 'Long Event',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                className: ["event", "bg-color-red"],
-                icon: 'fa-lock'
-            }, {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d - 3, 16, 0),
-                allDay: false,
-                className: ["event", "bg-color-blue"],
-                icon: 'fa-clock-o'
-            }, {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d + 4, 16, 0),
-                allDay: false,
-                className: ["event", "bg-color-blue"],
-                icon: 'fa-clock-o'
-            }, {
-                title: 'Meeting',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                className: ["event", "bg-color-darken"]
-            }, {
-                title: 'Lunch',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                className: ["event", "bg-color-darken"]
-            }, {
-                title: 'Birthday Party',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                className: ["event", "bg-color-darken"]
-            }, {
-                title: 'Smartadmin Open Day',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                className: ["event", "bg-color-darken"]
-            }],*/
-
             eventRender: function (event, element, icon) {
                 if (!event.description == "") {
                     element.find('.fc-title').append("<br/><span class='ultra-light'>" + event.description +
