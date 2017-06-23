@@ -31,6 +31,7 @@ Route::group(['prefix' => 'usuarios'],(function(){
     Route::post('/evento/editar','UsuarioController@editarEvento')->name('editar.evento');
     Route::POST('/form/editar/evento','UsuarioController@formEditarEvento')->name('form.editar.evento');
     Route::POST('/nuevoevento','UsuarioController@nuevoEvento')->name('nuevo.evento');
+    Route::get('/evento/list','UsuarioController@listarEventos')->name('list.evento');
 }));
 /*
 Route::get('/usuarios/home',function(){

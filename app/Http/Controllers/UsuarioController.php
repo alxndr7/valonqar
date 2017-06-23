@@ -75,5 +75,10 @@ class UsuarioController extends Controller
 
     }
 
+    public function listarEventos()
+    {
+        return view('eventos/listadoeventos');
+    }
+
 
 }
