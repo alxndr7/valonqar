@@ -75,9 +75,7 @@
                                                 <select name="num_cancha" id="num_cancha" class="form-control">
                                                     <option value="0" selected="" disabled="">Seleccione cancha</option>
                                                     @foreach ($canchas as $c)
-
-                                                        <option value="{{ $c->n_cod_det_neg }}">{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
-
+                                                        <option value="{{ $c->n_cod_det_neg }}">{{ $c->c_desc_cancha }} - {{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
                                                     @endforeach
                                                 </select>
                                                 <input type="hidden" id="n_cod_neg" value="{{ $c->n_cod_neg }}">
@@ -149,7 +147,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea class="form-control" placeholder="Máximo 40 caracteres" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
+                                                <textarea class="form-control" placeholder="Máximo 120 caracteres" rows="2" maxlength="120" id="descriptiondata" name="descriptiondata"></textarea>
                                             </div>
                                             </div>
 
@@ -576,6 +574,7 @@
          var icon = $('input:radio[name=iconselect]:checked').val();
          var id_cancha =  $('#num_cancha').val();
          var n_cod_neg =  $('#n_cod_neg').val();
+         var c_des_neg =  $('#descriptiondata').val();
          var color = "#FFFFFF";
          var tiempo = $('#tiempoEvento').val();
          var fecha = $('#fechaEvento').val().split("/");
@@ -629,13 +628,14 @@
          url: "{{route("insertar.evento")}}",
          dataType:"json",
          data: {
-         '_token': CSRF_TOKEN,
-         'fecha_ini': fecha_ini,
-         'fecha_fin': fecha_fin,
-         'icon': icon,
-         'id_cancha': id_cancha,
-         'n_cod_neg': n_cod_neg,
-         'color': color
+             '_token': CSRF_TOKEN,
+             'fecha_ini': fecha_ini,
+             'fecha_fin': fecha_fin,
+             'icon': icon,
+             'id_cancha': id_cancha,
+             'n_cod_neg': n_cod_neg,
+             'color': color,
+             'c_des_neg': c_des_neg
          },
          success: function (data) {
 

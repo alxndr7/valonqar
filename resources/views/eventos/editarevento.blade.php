@@ -207,9 +207,9 @@ $("#fechaEvento1").datepicker({
                                         <option value="0" selected="">Seleccione cancha</option>
                                         @foreach ($canchas as $c)
                                             @if($evento[0]->n_cod_cancha == $c->n_cod_det_neg)
-                                                <option value="{{ $c->n_cod_det_neg }}" selected>{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
+                                                <option value="{{ $c->n_cod_det_neg }}" selected>{{ $c->c_desc_cancha }} - {{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
                                             @else
-                                                <option value="{{ $c->n_cod_det_neg }}">{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
+                                                <option value="{{ $c->n_cod_det_neg }}">{{ $c->c_desc_cancha }} - {{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
                                             @endif
 
                                         @endforeach
@@ -246,7 +246,7 @@ $("#fechaEvento1").datepicker({
 
                             <section>
                                 <label class="textarea">Descripción: <i class="icon-append fa fa-comment"></i>
-                                    <textarea rows="2" id="descriptiondata1" maxlength="40" name="descriptiondata1" placeholder="Máximo 40 caracteres"></textarea>
+                                    <textarea rows="2" id="descriptiondata1" maxlength="40" name="descriptiondata1" placeholder="Máximo 120 caracteres" >{{$evento[0]->c_desc_even}}</textarea>
                                 </label>
                             </section>
 

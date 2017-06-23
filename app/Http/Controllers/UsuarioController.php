@@ -44,8 +44,8 @@ class UsuarioController extends Controller
 
     public function insertarEvento2(Request $request){
 
-        $eventos = \DB::select('call pa_insertarEvento2(?, ?, ?, ?, ?, ?, ?, ?)',
-            array($request->n_cod_neg,$request->id_cancha,Auth::user()->id,$request->fecha_ini,$request->fecha_fin,$request->color,$request->icon,'13001'));
+        $eventos = \DB::select('call pa_insertarEvento2(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            array($request->n_cod_neg,$request->id_cancha,Auth::user()->id,$request->fecha_ini,$request->fecha_fin,$request->color,$request->icon,'13001',$request->c_des_neg));
 
         if($eventos != null)
             return response()->json(['response'=>true]);
@@ -60,7 +60,6 @@ class UsuarioController extends Controller
             array($request->n_cod_event, $request->n_cod_neg,$request->id_cancha,Auth::user()->id,$request->fecha_ini,$request->fecha_fin,$request->color,$request->icon,'13001'));
 
             return response()->json(['response'=>true]);
-
 
     }
 
