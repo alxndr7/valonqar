@@ -67,88 +67,89 @@
 
                             <form id="add-event-form" novalidate="novalidate">
                                 <fieldset>
-<div class="row">
-    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <div class="form-group">
-            <label>Seleccionar # cancha</label>
-            <select name="gender" id="num_cancha" class="form-control">
-                <option value="0" selected="" disabled="">Seleccione cancha</option>
-                @foreach ($canchas as $c)
 
-                <option value="{{ $c->n_cod_det_neg }}">{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                                            <div class="form-group">
+                                                <label>Seleccionar # cancha</label>
+                                                <select name="num_cancha" id="num_cancha" class="form-control">
+                                                    <option value="0" selected="" disabled="">Seleccione cancha</option>
+                                                    @foreach ($canchas as $c)
 
-                @endforeach
-            </select>
-            <input type="hidden" id="n_cod_neg" value="{{ $c->n_cod_neg }}">
+                                                        <option value="{{ $c->n_cod_det_neg }}">{{ $c->n_largo_cancha }} x {{ $c->n_ancho_cancha }}</option>
 
-        </div>
-    </div>
-    <!--  <div class="form-group">
-          <label>Event Title</label>
-          <input class="form-control"  id="title" name="title" maxlength="40" type="text" placeholder="Event Title">
-      </div>-->
+                                                    @endforeach
+                                                </select>
+                                                <input type="hidden" id="n_cod_neg" value="{{ $c->n_cod_neg }}">
+
+                                            </div>
+                                        </div>
+                                        <!--  <div class="form-group">
+                                              <label>Event Title</label>
+                                              <input class="form-control"  id="title" name="title" maxlength="40" type="text" placeholder="Event Title">
+                                          </div>-->
 
 
-    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <div class="form-group">
-            <label>Seleccione icono</label>
-            <div class="btn-group btn-group-sm btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-default active">
-                    <input type="radio" name="iconselect" id="icon-1" value="fa-info" checked>
-                    <i class="fa fa-info text-muted"></i> </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="iconselect" id="icon-2" value="fa-warning">
-                    <i class="fa fa-warning text-muted"></i> </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="iconselect" id="icon-3" value="fa-check">
-                    <i class="fa fa-check text-muted"></i> </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="iconselect" id="icon-4" value="fa-user">
-                    <i class="fa fa-user text-muted"></i> </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="iconselect" id="icon-5" value="fa-lock">
-                    <i class="fa fa-lock text-muted"></i> </label>
-                <label class="btn btn-default">
-                    <input type="radio" name="iconselect" id="icon-6" value="fa-clock-o">
-                    <i class="fa fa-clock-o text-muted"></i> </label>
-            </div>
-        </div>
-        </div>
+                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                                            <div class="form-group">
+                                                <label>Seleccione icono</label>
+                                                <div class="btn-group btn-group-sm btn-group-justified" data-toggle="buttons">
+                                                    <label class="btn btn-default active">
+                                                        <input type="radio" name="iconselect" id="icon-1" value="fa-info" checked>
+                                                        <i class="fa fa-info text-muted"></i> </label>
+                                                    <label class="btn btn-default">
+                                                        <input type="radio" name="iconselect" id="icon-2" value="fa-warning">
+                                                        <i class="fa fa-warning text-muted"></i> </label>
+                                                    <label class="btn btn-default">
+                                                        <input type="radio" name="iconselect" id="icon-3" value="fa-check">
+                                                        <i class="fa fa-check text-muted"></i> </label>
+                                                    <label class="btn btn-default">
+                                                        <input type="radio" name="iconselect" id="icon-4" value="fa-user">
+                                                        <i class="fa fa-user text-muted"></i> </label>
+                                                    <label class="btn btn-default">
+                                                        <input type="radio" name="iconselect" id="icon-5" value="fa-lock">
+                                                        <i class="fa fa-lock text-muted"></i> </label>
+                                                    <label class="btn btn-default">
+                                                        <input type="radio" name="iconselect" id="icon-6" value="fa-clock-o">
+                                                        <i class="fa fa-clock-o text-muted"></i> </label>
+                                                </div>
+                                            </div>
+                                        </div>
 
-    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 
-        <div class="form-group">
-            <label>Select Event Color</label>
-            <div class="btn-group btn-group-justified btn-select-tick" data-toggle="buttons">
-                <label class="btn bg-color-darken active">
-                    <input type="radio" name="priority" id="option1" value="bg-color-darken txt-color-white" checked>
-                    <i class="fa fa-check txt-color-white"></i> </label>
-                <label class="btn bg-color-blue">
-                    <input type="radio" name="priority" id="option2" value="bg-color-blue txt-color-white">
-                    <i class="fa fa-check txt-color-white"></i> </label>
-                <label class="btn bg-color-orange">
-                    <input type="radio" name="priority" id="option3" value="bg-color-orange txt-color-white">
-                    <i class="fa fa-check txt-color-white"></i> </label>
-                <label class="btn bg-color-greenLight">
-                    <input type="radio" name="priority" id="option4" value="bg-color-greenLight txt-color-white">
-                    <i class="fa fa-check txt-color-white"></i> </label>
-                <label class="btn bg-color-blueLight">
-                    <input type="radio" name="priority" id="option5" value="bg-color-blueLight txt-color-white">
-                    <i class="fa fa-check txt-color-white"></i> </label>
-                <label class="btn bg-color-red">
-                    <input type="radio" name="priority" id="option6" value="bg-color-red txt-color-white">
-                    <i class="fa fa-check txt-color-white"></i> </label>
-            </div>
-        </div>
-        </div>
-</div>
+                                            <div class="form-group">
+                                                <label>Select Event Color</label>
+                                                <div class="btn-group btn-group-justified btn-select-tick" data-toggle="buttons">
+                                                    <label class="btn bg-color-darken active">
+                                                        <input type="radio" name="priority" id="option1" value="bg-color-darken txt-color-white" checked>
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                    <label class="btn bg-color-blue">
+                                                        <input type="radio" name="priority" id="option2" value="bg-color-blue txt-color-white">
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                    <label class="btn bg-color-orange">
+                                                        <input type="radio" name="priority" id="option3" value="bg-color-orange txt-color-white">
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                    <label class="btn bg-color-greenLight">
+                                                        <input type="radio" name="priority" id="option4" value="bg-color-greenLight txt-color-white">
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                    <label class="btn bg-color-blueLight">
+                                                        <input type="radio" name="priority" id="option5" value="bg-color-blueLight txt-color-white">
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                    <label class="btn bg-color-red">
+                                                        <input type="radio" name="priority" id="option6" value="bg-color-red txt-color-white">
+                                                        <i class="fa fa-check txt-color-white"></i> </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
 
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
-                                                <p class="note">Máximo 40 caracteres</p>
+                                                <textarea class="form-control" placeholder="Máximo 40 caracteres" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
                                             </div>
                                             </div>
 
@@ -156,7 +157,7 @@
                                             <div class="form-group">
                                                 <label>Fecha:</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="mydate" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
+                                                    <input type="text" name="fechaEvento" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -166,7 +167,7 @@
                                             <div class="form-group">
                                                 <label>Hora:</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" id="horaEvento" type="text" placeholder="Select time">
+                                                    <input class="form-control" id="horaEvento" name="horaEvento" type="text" placeholder="Select time">
                                                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                                 </div>
                                             </div>
@@ -176,7 +177,7 @@
 
                                             <div class="form-group">
                                                 <label>Tiempo(horas):</label>
-                                                <input class="form-control spinner-rigth"  id="tiempoEvento" name="spinner" value="1" type="text">
+                                                <input class="form-control spinner-rigth"  name="tiempoEvento" id="tiempoEvento" name="spinner" value="1" type="text">
                                             </div>
 
                                         </div>
@@ -184,7 +185,7 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                                             <div class="form-group">
                                                 <label>Agregar</label>
-                                                        <button class="btn btn-primary form-control" onclick="validarEvento()" type="button" id="add-event2" >
+                                                        <button class="btn btn-primary form-control" onclick="agregarEvento()" type="button" id="add-event2" >
                                                             Agregar reserva
                                                         </button>
                                             </div>
@@ -305,61 +306,9 @@
             </div>
 
         </div>
-
-        <form action="php/demo-comment.php" method="post" id="comment-form" class="smart-form">
-            <header>
-                Comment form
-            </header>
-
-            <fieldset>
-                <div class="row">
-                    <section class="col col-4">
-                        <label class="label">Name</label>
-                        <label class="input"> <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="name">
-                        </label>
-                    </section>
-                    <section class="col col-4">
-                        <label class="label">E-mail</label>
-                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-                            <input type="email" name="email">
-                        </label>
-                    </section>
-                    <section class="col col-4">
-                        <label class="label">Website</label>
-                        <label class="input"> <i class="icon-append fa fa-globe"></i>
-                            <input type="url" name="url">
-                        </label>
-                    </section>
-                </div>
-            </fieldset>
-                  <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                        <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea class="form-control" placeholder="Ejem: reserva lunes 18 de 4pm a 6 pm, num 9674578998" rows="2" maxlength="40" id="descriptiondata" name="descriptiondata"></textarea>
-                            <p class="note">Máximo 40 caracteres</p>
-                        </div>
-                    </div>
-
-
-
-            <footer>
-                <button type="button" onclick="validarEvento()" name="submit" class="btn btn-primary">
-                    Validate Form
-                </button>
-            </footer>
-
-            <div class="message">
-                <i class="fa fa-check fa-lg"></i>
-                <p>
-                    Your comment was successfully added!
-                </p>
-            </div>
-        </form>
-
-
         <!-- end row -->
-
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            </div>
     </div>
     <!-- END MAIN CONTENT -->
 
@@ -399,7 +348,16 @@
                 descriptiondata : {
                     required : true
                 },
-                mydate :{
+                fechaEvento :{
+                    required: true
+                },
+                tiempoEvento :{
+                    required: true
+                },
+                horaEvento: {
+                    required: true
+                },
+                num_cancha: {
                     required: true
                 }
             },
@@ -409,7 +367,16 @@
                 descriptiondata : {
                     required : 'Este campo es obligatorio'
                 },
-                mydate :{
+                fechaEvento :{
+                    required: 'Este campo es obligatorio'
+                },
+                tiempoEvento :{
+                    required: 'Este campo es obligatorio'
+                },
+                horaEvento :{
+                    required: 'Este campo es obligatorio'
+                },
+                num_cancha: {
                     required: 'Este campo es obligatorio'
                 }
             },
@@ -535,6 +502,25 @@
                 calendar.fullCalendar('unselect');
             },
             events: '/wsobteventosweb',
+            eventClick: function(event) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route("form.editar.evento")}}",
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        'n_cod_event': event.id
+                    },
+                    success: function(data) {
+                        //alert(data);
+                        //event.preventDefault();
+                        $('#myModal').modal('show');
+                        $('#myModal').show().html(data);
+                    },
+
+                });
+
+            },
             eventRender: function (event, element, icon) {
                 if (!event.description == "") {
                     element.find('.fc-title').append("<br/><span class='ultra-light'>" + event.description +
@@ -585,7 +571,8 @@
     });
 
     function agregarEvento(){
-        /*
+        if($("#add-event-form").valid()){
+
          var icon = $('input:radio[name=iconselect]:checked').val();
          var id_cancha =  $('#num_cancha').val();
          var n_cod_neg =  $('#n_cod_neg').val();
@@ -689,14 +676,11 @@
 
          });
          event.preventDefault();
-         */
+        }
+
+
     }
 
-
-    function validarEvento(){
-
-        $("#add-event-form").valid();
-    }
 
 </script>
 

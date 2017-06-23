@@ -21,6 +21,17 @@ class UsuarioController extends Controller
             'canchas' => $listadocanchas]);
     }
 
+    public function formEditarEvento(Request $req)
+    {
+        //dd($req->ncodcom);
+        $listadocanchas = \DB::select('call pa_obtenercanchas(?)',
+            array(Auth::user()->id));
+
+        $evento = \DB::select('call pa_obtenerEventoPorId(?)',array($req->n_cod_event));
+        //dd($comensal);
+        return view('eventos/editarevento')->with(['evento' => $evento,'canchas' => $listadocanchas]);
+    }
+
     public function insertarEvento(Request $request){
 
         $eventos = \DB::select('call pa_insertarEvento(?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?)',
@@ -40,6 +51,16 @@ class UsuarioController extends Controller
             return response()->json(['response'=>true]);
         else
             return response()->json(['response'=>false]);
+
+    }
+
+    public function editarEvento(Request $request){
+
+        $eventos = \DB::select('call pa_editarEvento(?,?, ?, ?, ?, ?, ?, ?, ?)',
+            array($request->n_cod_event, $request->n_cod_neg,$request->id_cancha,Auth::user()->id,$request->fecha_ini,$request->fecha_fin,$request->color,$request->icon,'13001'));
+
+            return response()->json(['response'=>true]);
+
 
     }
 
