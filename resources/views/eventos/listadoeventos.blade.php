@@ -118,12 +118,12 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th data-class="expand">Name</th>
-                                        <th>Position</th>
-                                        <th data-hide="phone">Office</th>
-                                        <th data-hide="phone">Age</th>
-                                        <th data-hide="phone,tablet">Start date</th>
-                                        <th data-hide="phone,tablet">Salary</th>
+                                        <th>Id</th>
+                                        <th data-class="expand">Descripción</th>
+                                        <th data-hide="phone">Fecha Inicio</th>
+                                        <th data-hide="phone">Fecha Fin</th>
+                                        <th data-hide="phone,tablet">Color</th>
+                                        <th data-hide="phone,tablet">Icono</th>
 
                                     </tr>
                                     </thead>
@@ -1138,47 +1138,6 @@
     $(document).ready(function() {
 
         pageSetUp();
-        var dataSet = [
-            [ "Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800" ],
-            [ "Garrett Winters", "Accountant", "Tokyo", "8422", "2011/07/25", "$170,750" ],
-            [ "Ashton Cox", "Junior Technical Author", "San Francisco", "1562", "2009/01/12", "$86,000" ],
-            [ "Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "6224", "2012/03/29", "$433,060" ],
-            [ "Airi Satou", "Accountant", "Tokyo", "5407", "2008/11/28", "$162,700" ],
-            [ "Brielle Williamson", "Integration Specialist", "New York", "4804", "2012/12/02", "$372,000" ],
-            [ "Herrod Chandler", "Sales Assistant", "San Francisco", "9608", "2012/08/06", "$137,500" ],
-            [ "Rhona Davidson", "Integration Specialist", "Tokyo", "6200", "2010/10/14", "$327,900" ],
-            [ "Colleen Hurst", "Javascript Developer", "San Francisco", "2360", "2009/09/15", "$205,500" ],
-            [ "Sonya Frost", "Software Engineer", "Edinburgh", "1667", "2008/12/13", "$103,600" ],
-            [ "Jena Gaines", "Office Manager", "London", "3814", "2008/12/19", "$90,560" ],
-            [ "Quinn Flynn", "Support Lead", "Edinburgh", "9497", "2013/03/03", "$342,000" ],
-            [ "Charde Marshall", "Regional Director", "San Francisco", "6741", "2008/10/16", "$470,600" ],
-            [ "Haley Kennedy", "Senior Marketing Designer", "London", "3597", "2012/12/18", "$313,500" ],
-            [ "Tatyana Fitzpatrick", "Regional Director", "London", "1965", "2010/03/17", "$385,750" ],
-            [ "Michael Silva", "Marketing Designer", "London", "1581", "2012/11/27", "$198,500" ],
-            [ "Paul Byrd", "Chief Financial Officer (CFO)", "New York", "3059", "2010/06/09", "$725,000" ],
-            [ "Gloria Little", "Systems Administrator", "New York", "1721", "2009/04/10", "$237,500" ],
-            [ "Bradley Greer", "Software Engineer", "London", "2558", "2012/10/13", "$132,000" ],
-            [ "Dai Rios", "Personnel Lead", "Edinburgh", "2290", "2012/09/26", "$217,500" ],
-            [ "Jenette Caldwell", "Development Lead", "New York", "1937", "2011/09/03", "$345,000" ],
-            [ "Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "6154", "2009/06/25", "$675,000" ],
-            [ "Caesar Vance", "Pre-Sales Support", "New York", "8330", "2011/12/12", "$106,450" ],
-            [ "Doris Wilder", "Sales Assistant", "Sidney", "3023", "2010/09/20", "$85,600" ],
-            [ "Angelica Ramos", "Chief Executive Officer (CEO)", "London", "5797", "2009/10/09", "$1,200,000" ],
-            [ "Gavin Joyce", "Developer", "Edinburgh", "8822", "2010/12/22", "$92,575" ],
-            [ "Jennifer Chang", "Regional Director", "Singapore", "9239", "2010/11/14", "$357,650" ],
-            [ "Brenden Wagner", "Software Engineer", "San Francisco", "1314", "2011/06/07", "$206,850" ],
-            [ "Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "2947", "2010/03/11", "$850,000" ],
-            [ "Shou Itou", "Regional Marketing", "Tokyo", "8899", "2011/08/14", "$163,000" ],
-            [ "Michelle House", "Integration Specialist", "Sidney", "2769", "2011/06/02", "$95,400" ],
-            [ "Suki Burks", "Developer", "London", "6832", "2009/10/22", "$114,500" ],
-            [ "Prescott Bartlett", "Technical Author", "London", "3606", "2011/05/07", "$145,000" ],
-            [ "Gavin Cortez", "Team Leader", "San Francisco", "2860", "2008/10/26", "$235,500" ],
-            [ "Martena Mccray", "Post-Sales support", "Edinburgh", "8240", "2011/03/09", "$324,050" ],
-            [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
-        ];
-
-
-
 
 
         /* // DOM Position key index //
@@ -1244,15 +1203,39 @@
             "t"+
             "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
             "autoWidth" : true,
-            data: dataSet,
-            columns: [
-                { title: "Id" },
-                { title: "Date" },
-                { title: "Name" },
-                { title: "Note." },
-                { title: "Amount" },
-                { title: "Tax" }
+            "ajax": "/wsobteventosweb",
+            "columns": [
+                { "data": "id" },
+                { "data": "title" },
+                { "data": "start" },
+                { "data": "end" },
+                { "data": "color" },
+                { "data": "icon" }
             ],
+            "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+            "t"+
+            "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+            "oLanguage": {
+                "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+            },
+            "oTableTools": {
+                "aButtons": [
+                    "copy",
+                    "csv",
+                    "xls",
+                    {
+                        "sExtends": "pdf",
+                        "sTitle": "SmartAdmin_PDF",
+                        "sPdfMessage": "SmartAdmin PDF Export",
+                        "sPdfSize": "letter"
+                    },
+                    {
+                        "sExtends": "print",
+                        "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+                    }
+                ],
+                "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
             "oLanguage": {
                 "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
             },
@@ -1272,7 +1255,7 @@
         });
 
         // custom toolbar
-        $("div.toolbar").html('<div class="text-right"><img src="img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+        $("div.toolbar").html('<div class="text-right"><img src="/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
 
         // Apply the filter
         $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
@@ -1283,6 +1266,12 @@
                     .draw();
 
         } );
+
+        $('#datatable_fixed_column tbody').on('click', 'tr', function () {
+            var data = otable.row( this ).data();
+            alert( 'You clicked on '+data  +'\'s row' );
+        } );
+
         /* END COLUMN FILTER */
 
         /* TABLETOOLS */

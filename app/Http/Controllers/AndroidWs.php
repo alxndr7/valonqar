@@ -61,8 +61,10 @@ class AndroidWs extends Controller
     public function obtenerEventosWeb(){
 
         $eventos = \DB::select('call pa_obtenereventos(?)',array(Auth::user()->id));
-        return response()->json($eventos);
+        return response()->json(['data'=>$eventos]);
+        //return array_values($eventos);
         //return json_decode(response()->json($eventos), true);
+        //return json_decode(json_encode($eventos), true);
     }
 
 
