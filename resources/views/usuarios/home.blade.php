@@ -615,7 +615,7 @@
          color = "#FF9800";
          break;
          default:
-         color = "#AAFFHH";
+         color = "#AAFFEE";
          }
 
          var fecha_ini = $('#fechaEvento').val() + " " +hora_ini + ":" + min_ini;

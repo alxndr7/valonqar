@@ -77,7 +77,10 @@ class UsuarioController extends Controller
 
     public function listarEventos()
     {
-        return view('eventos/listadoeventos');
+        $eventos = \DB::select('call pa_obtenereventos(?)',array(Auth::user()->id));
+        //return response()->json(['data'=>$eventos]);
+        return view('eventos/listadoeventos')->with([
+            'eventos' => $eventos]);
     }
 
 
