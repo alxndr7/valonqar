@@ -107,7 +107,7 @@ function editarEvento(){
                 color = "#FF9800";
                 break;
             default:
-                color = "#AAFFHH";
+                color = "#AAFFAA";
         }
 
         var fecha_ini = $('#fechaEvento1').val() + " " +hora_ini + ":" + min_ini;
