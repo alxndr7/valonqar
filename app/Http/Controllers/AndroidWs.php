@@ -10,7 +10,8 @@ class AndroidWs extends Controller
     public function serviceObtenerCanchas(){
 
         $canchas = \DB::select('call paa_listarCanchas()');
-        return response()->json(['canchas'=>$canchas]);
+        $canchasNegocio = \DB::select('call paa_listarCanchasNegocio()');
+        return response()->json(['canchas'=>$canchas, "canchas_negocio"=>$canchasNegocio]);
     }
 
     public function serviceObtenerUbicacionCancha(Request $req){
