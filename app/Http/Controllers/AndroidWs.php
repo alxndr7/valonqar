@@ -51,8 +51,6 @@ class AndroidWs extends Controller
         return response()->json(['canchas'=>$canchas]);
     }
 
-
-
     public function serviceObtenerEventos(Request $req){
 
         $eventos = \DB::select('call paa_obtenereventos(?)',array($req->nCodNeg));
