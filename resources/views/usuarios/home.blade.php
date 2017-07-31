@@ -147,7 +147,9 @@
                                         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                                             <div class="form-group">
                                                 <label>Descripción</label>
+                                                <label class="textarea form-control state-error">
                                                 <textarea class="form-control" placeholder="Máximo 120 caracteres" rows="2" maxlength="120" id="descriptiondata" name="descriptiondata"></textarea>
+                                                </label>
                                             </div>
                                             </div>
 
@@ -155,8 +157,8 @@
                                             <div class="form-group">
                                                 <label>Fecha:</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="fechaEvento" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input  type="text" name="fechaEvento" id="fechaEvento" placeholder="Select a date" class="form-control datepicker" data-dateformat="yy/mm/dd">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,6 +320,18 @@
 
 @section('script')
         <!-- Scripts -->
+<!-- CUSTOM NOTIFICATION -->
+<script src="{{ asset('/js/notification/SmartNotification.min.js')}}"></script>
+
+<!-- CUSTOM CALENDAR -->
+<script src="{{ asset('/js/plugin/moment/moment.min.js')}}"></script>
+<script src="{{ asset('/js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale-all.js"></script>
+
+<!-- CUSTOM TIMEPICKER -->
+<script src="{{ asset('/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+
+
 
 <script type="text/javascript">
 
@@ -499,7 +513,7 @@
                 }
                 calendar.fullCalendar('unselect');
             },
-            events: '/wsobteventosweb',
+            events: "{{route("obtener.eventos.calendario")}}",//wsobteventosweb',
             eventClick: function(event) {
 
                 $.ajax({
@@ -653,7 +667,7 @@
          });
 
          $('#calendar').fullCalendar('removeEvents');
-         $('#calendar').fullCalendar('addEventSource', '/wsobteventosweb');
+         $('#calendar').fullCalendar('addEventSource', "{{route("obtener.eventos.calendario")}}");
          $('#calendar').fullCalendar('rerenderEvents' );
          }
          else{

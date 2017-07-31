@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/cliente/informacion','WebController@info')->name('cliente.info');
 Route::post('/cliente/informacion','WebController@addSolicitud')->name('cliente.info.subtmit');
+Route::get('/wsobteventosweb', 'AndroidWs@obtenerEventosWeb')->name('obtener.eventos.calendario');
 
 Route::get('/negocio/form','WebController@llenarcampos')->name('negocio.form');
 
@@ -53,14 +54,10 @@ Route::group(['prefix' => 'cliente'],(function(){
 }));
 
 
-
-
 Route::get('/wslistarcanchas', 'AndroidWs@serviceObtenerCanchas');
 Route::get('/wsobtubineg/{id}', 'AndroidWs@serviceObtenerUbicacionCancha');
 Route::get('/wsobtubicaciones', 'AndroidWs@serviceObtenerUbicaciones');
 Route::get('/wsobtdistritos', 'AndroidWs@serviceObtenerDistritos');
 Route::get('/wsobtcanchdist/{nCodDist}', 'AndroidWs@serviceObtenerCanchasPorDistrito');
 Route::get('/wsobteventos/{nCodNeg}', 'AndroidWs@serviceObtenerEventos');
-Route::get('/wsobteventosweb', 'AndroidWs@obtenerEventosWeb');
-
 Route::get('/pgprueba', 'AndroidWs@servicepgprueba');
