@@ -7,7 +7,7 @@
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-                        <img src="/img/avatars/sunny.png" alt="me" class="online" />
+                        <img src="{{asset('/img/avatars/sunny.png')}}" alt="me" class="online" />
 						<span>
 							{{ Auth::user()->c_nom_usu }}
 						</span>
@@ -26,6 +26,28 @@
         -->
 
         <ul>
+            <li class="">
+                <a href="#" title="Configuracion"><i class="fa fa-lg fa-fw fa-cog fa-spin"></i> <span class="menu-item-parent">Configuracion</span></a>
+                <ul id="menu_configuracion">
+                    <!-- <li id="conf_cat_sect">
+                         <a href="catastro_sectores" title="Dashboard"><i class="fa fa-map-marker"></i> Sectores catastrales</a>
+                     </li>
+                     <li id="conf_cat_mzna">
+                         <a href="catastro_mzns" title="Dashboard"><i class="fa fa-building"></i> Manzanas catastrales</a>
+                     </li>
+                     <li id="conf_aran_rust">
+                         <a href="catastro_aran_rust" title="Dashboard"><i class="fa fa-building"></i> Aranceles Rusticos</a>
+                     </li>-->
+                    <li id="conf_canchas">
+                        <a href="{{route('conf_canchas.index')}}" title="Configuración de canchas"><i class="fa fa-user-md"></i> Canchas</a>
+                    </li>
+                    <li id="conf_negocio">
+                        <a href="conf_negocio" title="Información De Negocio"><i class="fa fa-user-md"></i> Perfil Negocio</a>
+                    </li>
+
+
+                </ul>
+            </li>
 
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-user"><em>3</em></i> <span class="menu-item-parent">Reservas</span></a>

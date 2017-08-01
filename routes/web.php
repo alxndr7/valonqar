@@ -52,7 +52,31 @@ Route::group(['prefix' => 'cliente'],(function(){
 
 }));
 
+/******************** ********    CONFIGURACION   ******************  **********/
+Route::group(['namespace'=>'configuracion'],function(){
 
+    /******************** *****  CONF. CANCHAS   ***************************/
+    Route::resource('conf_canchas','CanchasController');
+    Route::get('modal_cancha_nueva','CanchasController@modal_cancha_nueva');
+   /* Route::post('select_provincias', 'MemoriaDescController@provincias_por_dep');
+    Route::post('select_distritos', 'MemoriaDescController@distritos_por_prov');
+    Route::get('dlg_new_mem_desc', 'MemoriaDescController@dlg_new_mem_desc');
+    Route::get('list_memo_desc','MemoriaDescController@list_memo_desc');
+    Route::post('insert_new_memo_desc', 'MemoriaDescController@insert_new_memo_desc');
+    Route::post('update_memo_desc', 'MemoriaDescController@update_memo_desc');
+    Route::post('delete_memo_desc', 'MemoriaDescController@delete_memo_desc');
+    Route::get('pre_reporte_md/{id}','MemoriaDescController@reporte_ficha');*/
+
+    /******** ***************** CONF. NEGOCIO ******************** *********/
+  /*  Route::resource('propietarios_mdesc','PropietariosController');
+    Route::get('list_propietarios','PropietariosController@getPropietarios');
+    Route::post('insert_new_propietario', 'PropietariosController@insert_new_propietario');
+    Route::post('update_propietario', 'PropietariosController@update_propietario');
+    Route::post('delete_propietario', 'PropietariosController@delete_propietario');*/
+
+
+
+});
 
 
 Route::get('/wslistarcanchas', 'AndroidWs@serviceObtenerCanchas');

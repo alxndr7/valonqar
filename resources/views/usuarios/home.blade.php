@@ -326,6 +326,8 @@
     $(document).ready(function() {
 
         pageSetUp();
+        $("#menu_configuracion").show();
+        $("#conf_canchas").addClass('active');
 
         var errorClass = 'invalid';
         var errorElement = 'em';
@@ -499,7 +501,7 @@
                 }
                 calendar.fullCalendar('unselect');
             },
-            events: '/wsobteventosweb',
+            events: '{{url('/wsobteventosweb')}}',
             eventClick: function(event) {
 
                 $.ajax({

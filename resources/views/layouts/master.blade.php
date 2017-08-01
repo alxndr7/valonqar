@@ -11,23 +11,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Basic Styles -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/font-awesome.min.css')}}">
 
     <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/smartadmin-production-plugins.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/smartadmin-production.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/smartadmin-skins.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/smartadmin-production-plugins.min.css')}}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/smartadmin-production.min.css')}}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/smartadmin-skins.min.css')}}">
 
     <!-- SmartAdmin RTL Support -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/smartadmin-rtl.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/smartadmin-rtl.min.css')}}">
 
     <!-- We recommend you use "your_style.css" to override SmartAdmin
          specific styles this will also ensure you retrain your customization with each SmartAdmin update.
     <link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
 
     <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/demo.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{asset('/css/demo.min.css')}}">
 
     <!-- FAVICONS -->
     <link rel="shortcut icon" href="/img/favicon/favicon.ico" type="image/x-icon">
@@ -105,62 +105,47 @@ you can add as many as you like
 <!--================================================== -->
 
 <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-<script data-pace-options='{ "restartOnRequestAfter": true }' src="/js/plugin/pace/pace.min.js"></script>
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{asset('/js/plugin/pace/pace.min.js')}}"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     if (!window.jQuery) {
-        document.write('<script src="/js/libs/jquery-2.1.1.min.js"><\/script>');
+        document.write('<script src="{{asset('/js/libs/jquery-2.1.1.min.js')}}"><\/script>');
     }
 </script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script>
     if (!window.jQuery.ui) {
-        document.write('<script src="/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+        document.write('<script src="{{asset('/js/libs/jquery-ui-1.10.3.min.js')}}"><\/script>');
     }
 </script>
 
 
 <!-- IMPORTANT: APP CONFIG -->
-<script src="/js/app.config.js"></script>
+<script src="{{asset('/js/app.config.js')}}"></script>
 
 <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-<script src="/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+<script src="{{asset('/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')}}"></script>
 
 <!-- BOOTSTRAP JS -->
-<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="{{asset('/js/bootstrap/bootstrap.min.js')}}"></script>
 
 <!-- CUSTOM NOTIFICATION -->
-<script src="/js/notification/SmartNotification.min.js"></script>
+<script src="{{asset('/js/notification/SmartNotification.min.js')}}"></script>
 
 <!-- JARVIS WIDGETS -->
-<script src="/js/smartwidgets/jarvis.widget.min.js"></script>
-
-<!-- EASY PIE CHARTS -->
-<script src="/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-
-<!-- SPARKLINES -->
-<script src="/js/plugin/sparkline/jquery.sparkline.min.js}"></script>
+<script src="{{asset('/js/smartwidgets/jarvis.widget.min.js')}}"></script>
 
 <!-- JQUERY VALIDATE -->
-<script src="/js/plugin/jquery-validate/jquery.validate.min.js"></script>
+<script src="{{asset('/js/plugin/jquery-validate/jquery.validate.min.js')}}"></script>
 
 <!-- JQUERY MASKED INPUT -->
-<script src="/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+<script src="{{asset('/js/plugin/masked-input/jquery.maskedinput.min.js')}}"></script>
 
 <!-- JQUERY SELECT2 INPUT -->
-<script src="/js/plugin/select2/select2.min.js"></script>
-
-<!-- JQUERY UI + Bootstrap Slider -->
-<script src="/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
-
-<!-- browser msie issue fix -->
-<script src="/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
-
-<!-- FastClick: For mobile devices -->
-<script src="/js/plugin/fastclick/fastclick.min.js"></script>
+<script src="{{asset('/js/plugin/select2/select2.min.js')}}"></script>
 
 <!--[if IE 8]>
 
@@ -169,25 +154,25 @@ you can add as many as you like
 <![endif]-->
 
 <!-- Demo purpose only -->
-<script src="/js/demo.min.js"></script>
+<script src="{{asset('/js/demo.min.js')}}"></script>
 
 <!-- MAIN APP JS FILE -->
-<script src="/js/app.min.js"></script>
+<script src="{{asset('/js/app.min.js')}}"></script>
 
 <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 <!-- Voice command : plugin -->
-<script src="/js/speech/voicecommand.min.js"></script>
+<script src="{{asset('/js/speech/voicecommand.min.js')}}"></script>
 
 <!-- SmartChat UI : plugin -->
-<script src="/js/smart-chat-ui/smart.chat.ui.min.js"></script>
-<script src="/js/smart-chat-ui/smart.chat.manager.min.js"></script>
+<script src="{{asset('/js/smart-chat-ui/smart.chat.ui.min.js')}}"></script>
+<script src="{{asset('/js/smart-chat-ui/smart.chat.manager.min.js')}}"></script>
 
 <!-- PAGE RELATED PLUGIN(S) -->
-<script src="/js/plugin/moment/moment.min.js"></script>
-<script src="/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+<script src="{{asset('/js/plugin/moment/moment.min.js')}}"></script>
+<script src="{{asset('/js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale-all.js"></script>
 
-<script src="/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+<script src="{{asset('/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
 
 @yield('script')
 
